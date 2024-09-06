@@ -16,9 +16,10 @@
         <h1>Selected Lotto Numbers</h1>
     </div>
     <div class="container lotto">
-        <h2>Good luck!</h2>
-        <p> last update:2030/12/31</p>
-        <p> 1, 10, 19, 15, 20, 35 </p>
+        {% for lotto in lottos %}
+        <p>{{ lotto.update_date }}</p>
+        <p>{{ lotto.lottos | linebreaksbr }}</p>
+        {% endfor %}
     </div>
 </body>
 
