@@ -1,3 +1,4 @@
 __pycache__
 *.sqlite3
-site_1/static
+static
+secrets.json
