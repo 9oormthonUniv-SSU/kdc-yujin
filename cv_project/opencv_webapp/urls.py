@@ -7,4 +7,8 @@ app_name = 'opencv_webapp'
 
 urlpatterns = [
     path('', views.first_view, name='first_view'),
+    path('simple_upload/', views.simple_upload, name='simple_upload'),
 ]
+
+# settings.py에 정의해둔 경로를 사용
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
