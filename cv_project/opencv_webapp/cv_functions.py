@@ -6,7 +6,21 @@ def cv_detect_face(path):  # path = 이미지 파일 경로
     img = cv2.imread(path, 1)
 
     if (type(img) is np.ndarray):
-        print(img.shape) # 세로, 가로, 채널
+        print(img.shape)
+        resize_needed = False
+
+        if img.shape[1] > 640:  # 가로 > 640
+            resize_needed = True
+            new_w = img.shape[1] * (640.0 / img.shape[1])  
+            new_h = img.shape[0] * (640.0 / img.shape[1])  
+
+        elif img.shape[0] > 480:  # 세로 > 480
+            resize_needed = True
+            new_w = img.shape[1] * (480.0 / img.shape[0])  
+            new_h = img.shape[0] * (480.0 / img.shape[0]) 
+
+        if resize_needed:
+            img = cv2.resize(img, (int(new_w), int(new_h)))
 
         baseUrl = settings.MEDIA_ROOT_URL + settings.MEDIA_URL
         face_cascade = cv2.CascadeClassifier(baseUrl + 'haarcascade_frontalface_default.xml')
@@ -29,3 +43,4 @@ def cv_detect_face(path):  # path = 이미지 파일 경로
     else:
         print('Error occurred within cv_detect_face!')
         print(path)
+
