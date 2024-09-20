@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import SimpleUploadForm, ImageUploadForm
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+from .cv_functions import cv_detect_face
 
 def first_view(request):
     return render(request, 'opencv_webapp/first_view.html', {})
@@ -33,6 +34,8 @@ def detect_face(request):
           post.save() # DB 저장
           
           imageURL = settings.MEDIA_URL + form.instance.document.name
+          cv_detect_face(settings.MEDIA_ROOT_URL + imageURL)
+            
           return render(request, 'opencv_webapp/detect_face.html', {'form':form, 'post':post})
       
    else:
